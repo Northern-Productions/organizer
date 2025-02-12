@@ -1,9 +1,9 @@
-export const baseUrl = "http://localhost:3000";
+import supabase from "./supabaseClient";
 
 export const Requests = {
   // should return a promise with all items in the database
   getAllItems: () => {
-    return fetch(`${baseUrl}/items`).then((response) => {
+    return fetch(`${supabase}/items`).then((response) => {
       if (!response.ok) {
         throw new Error(`Fetching failed with status ${response.status}`);
       }
@@ -15,7 +15,7 @@ export const Requests = {
   // and return a promise with the result
   postItem: (item) => {
     console.log(item);
-    return fetch(`${baseUrl}/items`, {
+    return fetch(`${supabase}/items`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const Requests = {
   // should create a category in the database from a partial object
   // and return a promise with the result
   postCategory: (category) => {
-    return fetch(`${baseUrl}/categories`, {
+    return fetch(`${supabase}/categories`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const Requests = {
 
   // should delete an item from the database
   deleteItem: (itemId) => {
-    return fetch(`${baseUrl}/items/${itemId}`, {
+    return fetch(`${supabase}/items/${itemId}`, {
       method: "DELETE",
     }).then((response) => {
       if (!response.ok) {
@@ -59,7 +59,7 @@ export const Requests = {
   },
 
   updateItem: (itemId, itemData) => {
-    return fetch(`${baseUrl}/items/${itemId}`, {
+    return fetch(`${supabase}/items/${itemId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
