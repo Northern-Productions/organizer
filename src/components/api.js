@@ -1,4 +1,4 @@
-import supabase from "./supabaseClient";
+import supabase from "./supabaseClient.js";
 
 export const Requests = {
   // should return a promise with all items in the database
