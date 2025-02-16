@@ -192,3 +192,9 @@ td {
   margin-right: 0.5rem;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  #root {
+    padding: 0;
+  }
+}
