@@ -13,30 +13,30 @@ const SearchBar = ({
     let data = allItems;
 
     if (selectedCategory) {
-      data = data.filter((obj) => obj.item.category === selectedCategory);
+      data = data.filter((obj) => obj.category === selectedCategory);
     }
     if (searchTerm) {
       const lowerCaseSearchTerm = searchTerm.toLowerCase();
       data = data.filter((obj) => {
         const descriptionDistance = levenshtein.get(
-          obj.item.description.toLowerCase(),
+          obj.description.toLowerCase(),
           lowerCaseSearchTerm
         );
         const sizeDistance = levenshtein.get(
-          obj.item.size.toLowerCase(),
+          obj.size.toLowerCase(),
           lowerCaseSearchTerm
         );
         const manufacturerDistance = levenshtein.get(
-          obj.item.manufacturer.toLowerCase(),
+          obj.manufacturer.toLowerCase(),
           lowerCaseSearchTerm
         );
         return (
           descriptionDistance <= 3 ||
           sizeDistance <= 3 ||
           manufacturerDistance <= 3 ||
-          obj.item.description.toLowerCase().includes(lowerCaseSearchTerm) ||
-          obj.item.size.toLowerCase().includes(lowerCaseSearchTerm) ||
-          obj.item.manufacturer.toLowerCase().includes(lowerCaseSearchTerm)
+          obj.description.toLowerCase().includes(lowerCaseSearchTerm) ||
+          obj.size.toLowerCase().includes(lowerCaseSearchTerm) ||
+          obj.manufacturer.toLowerCase().includes(lowerCaseSearchTerm)
         );
       });
     }
