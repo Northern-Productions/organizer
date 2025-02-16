@@ -27,7 +27,6 @@ const ContentCtn = ({ filteredData, refetchData }) => {
             <th>Description</th>
             <th>Size</th>
             <th>Manufacturer</th>
-            <th>Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -35,9 +34,8 @@ const ContentCtn = ({ filteredData, refetchData }) => {
             <tr key={object.id} className="table-item">
               <td>{object.description}</td>
               <td>{object.size}</td>
-              <td>{object.manufacturer}</td>
               <td>
-                {object.amount}
+                {object.manufacturer}
                 <button
                   className="item-delete-btn"
                   onClick={() => handleDelete(object)}

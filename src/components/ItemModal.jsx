@@ -122,18 +122,6 @@ const ItemModal = ({ refetchData, categories }) => {
               onChange={(e) => setItemManufacturer(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="amount">Amount</label>
-            <input
-              type="number"
-              inputMode="numeric"
-              id="amount"
-              name="amount"
-              value={itemAmount}
-              onChange={(e) => setItemAmount(e.target.value)}
-              required
-            />
-          </div>
         </div>
         <button className="add-item-modal-btn" type="submit">
           Add Item
