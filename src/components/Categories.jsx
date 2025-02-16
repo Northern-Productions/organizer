@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
-import { baseUrl } from "./api";
+import { Requests } from "./api";
+import toast from "react-hot-toast";
 
 const Categories = ({
   selectedCategory,
@@ -9,11 +10,20 @@ const Categories = ({
   setCategories,
   children,
 }) => {
+  const refetchCategories = () => {
+    return Requests.getAllCategories()
+      .then((fetchedCategories) => {
+        setCategories(fetchedCategories);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch categories: ", error);
+        toast.error("Failed to fetch categories: ", error);
+      });
+  };
+
   useEffect(() => {
-    fetch(`${baseUrl}/categories`)
-      .then((response) => response.json())
-      .then((data) => setCategories(data));
-  }, [setCategories]);
+    refetchCategories();
+  });
 
   const handleClick = (e) => {
     const category = e.target.value;

@@ -2,74 +2,76 @@ import supabase from "./supabaseClient";
 
 export const Requests = {
   // should return a promise with all items in the database
-  getAllItems: () => {
-    return fetch(`${supabase}/items`).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Fetching failed with status ${response.status}`);
-      }
-      return response.json();
-    });
+  getAllItems: async () => {
+    const { data, error } = await supabase.from("items").select("*");
+
+    if (error) {
+      throw new Error(`Fetching failed: ${error.message}`);
+    }
+
+    return data;
+  },
+
+  getAllCategories: async () => {
+    const { data, error } = await supabase.from("categories").select("*");
+
+    if (error) {
+      throw new Error(`Fetching failed: ${error.message}`);
+    }
+
+    return data;
   },
 
   // should create an item in the database from a partial object
   // and return a promise with the result
-  postItem: (item) => {
-    console.log(item);
-    return fetch(`${supabase}/items`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ item }),
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Posting failed with status ${response.status}`);
-      }
-      return response.json();
-    });
+  postItem: async (item) => {
+    const { data, error } = await supabase.from("items").insert([item]);
+
+    if (error) {
+      throw new Error(`Posting failed: ${error.message}`);
+    }
+
+    return data;
   },
 
   // should create a category in the database from a partial object
   // and return a promise with the result
-  postCategory: (category) => {
-    return fetch(`${supabase}/categories`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ category }),
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Posting failed with status ${response.status}`);
-      }
-      return response.json();
-    });
+  postCategory: async (category) => {
+    const { data, error } = await supabase
+      .from("categories")
+      .insert([category]);
+
+    if (error) {
+      throw new Error(`Posting failed: ${error.message}`);
+    }
+
+    return data;
   },
 
   // should delete an item from the database
-  deleteItem: (itemId) => {
-    return fetch(`${supabase}/items/${itemId}`, {
-      method: "DELETE",
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Deletion failed with status ${response.status}`);
-      }
-      return response.json();
-    });
+  deleteItem: async (itemId) => {
+    const { data, error } = await supabase
+      .from("items")
+      .delete()
+      .eq("id", itemId);
+
+    if (error) {
+      throw new Error(`Deletion failed: ${error.message}`);
+    }
+
+    return data;
   },
 
-  updateItem: (itemId, itemData) => {
-    return fetch(`${supabase}/items/${itemId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(itemData),
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Update failed with status ${response.status}`);
-      }
-      return response.json();
-    });
+  updateItem: async (itemId, itemData) => {
+    const { data, error } = await supabase
+      .from("items")
+      .update(itemData)
+      .eq("id", itemId);
+
+    if (error) {
+      throw new Error(`Update failed: ${error.message}`);
+    }
+
+    return data;
   },
 };
