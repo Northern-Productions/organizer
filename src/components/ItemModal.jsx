@@ -38,7 +38,7 @@ const ItemModal = ({ refetchData, categories }) => {
     e.preventDefault();
 
     handlePostItem({
-      category: itemCategory,
+      category_id: itemCategory, // Use category_id instead of category
       description: itemDescription,
       size: itemSize,
       manufacturer: itemManufacturer,
@@ -67,8 +67,8 @@ const ItemModal = ({ refetchData, categories }) => {
                 -- Select an option --
               </option>
               {categories.map((obj) => (
-                <option key={obj.id} value={obj.category.name.toLowerCase()}>
-                  {obj.category.name}
+                <option key={obj.id} value={obj.id}>
+                  {obj.name}
                 </option>
               ))}
             </select>
@@ -144,5 +144,3 @@ const ItemModal = ({ refetchData, categories }) => {
 };
 
 export default ItemModal;
-
-// Now make the inputs validate correctly and then make a delete button for each item in the list.

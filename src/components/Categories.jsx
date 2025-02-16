@@ -55,10 +55,10 @@ const Categories = ({
           {categories.map((obj) => (
             <option
               key={obj.id}
-              id={obj.category.name.toLowerCase()}
-              value={obj.category.name.toLowerCase()}
+              id={obj.name.toLowerCase()}
+              value={obj.name.toLowerCase()}
             >
-              {obj.category.name}
+              {obj.name}
             </option>
           ))}
         </select>

@@ -33,11 +33,11 @@ const ContentCtn = ({ filteredData, refetchData }) => {
         <tbody>
           {filteredData.map((object) => (
             <tr key={object.id} className="table-item">
-              <td>{object.item.description}</td>
-              <td>{object.item.size}</td>
-              <td>{object.item.manufacturer}</td>
+              <td>{object.description}</td>
+              <td>{object.size}</td>
+              <td>{object.manufacturer}</td>
               <td>
-                {object.item.amount}
+                {object.amount}
                 <button
                   className="item-delete-btn"
                   onClick={() => handleDelete(object)}
