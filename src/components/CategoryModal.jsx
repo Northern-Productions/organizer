@@ -40,15 +40,15 @@ const CategoryModal = ({ refetchData }) => {
             className="form-input"
             placeholder="Ex. Decorative"
             type="text"
-            id="category"
-            name="category"
+            id="category-input"
+            name="category-input"
             value={categoryValue}
             onChange={(e) => setCategoryValue(e.target.value)}
             required
           />
         </div>
       </div>
-      <button type="submit" className="form-submit">
+      <button id="category-submit-btn" type="submit" className="form-submit">
         Add Category
       </button>
     </form>

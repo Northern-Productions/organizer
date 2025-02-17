@@ -81,6 +81,15 @@
   z-index: 6;
 }
 
+#category-input,
+#category-submit-btn,
+#cat-drop-down,
+.item-delete-btn,
+.form-input-ctn div input,
+.add-item-modal-btn {
+  background-color: #3b3b3b;
+}
+
 .item-modal {
   display: none;
 }
@@ -117,7 +126,6 @@
 
 .form-input-ctn div input {
   padding: 0.3rem;
-  background-color: #3b3b3b;
 }
 
 #size-inputs {
