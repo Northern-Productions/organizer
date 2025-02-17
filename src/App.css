@@ -88,6 +88,7 @@
 .form-input-ctn div input,
 .add-item-modal-btn {
   background-color: #3b3b3b;
+  color: white;
 }
 
 .item-modal {
