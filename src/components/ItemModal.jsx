@@ -8,7 +8,6 @@ const ItemModal = ({ refetchData, categories }) => {
   const [itemWidth, setItemWidth] = useState("");
   const [itemLength, setItemLength] = useState("");
   const [itemManufacturer, setItemManufacturer] = useState("");
-  const [itemAmount, setItemAmount] = useState("");
 
   const handleResetForm = () => {
     setItemCategory("");
@@ -16,7 +15,6 @@ const ItemModal = ({ refetchData, categories }) => {
     setItemWidth("");
     setItemLength("");
     setItemManufacturer("");
-    setItemAmount("");
   };
 
   let itemSize = itemWidth + '" x ' + itemLength + "'";
@@ -42,7 +40,6 @@ const ItemModal = ({ refetchData, categories }) => {
       description: itemDescription,
       size: itemSize,
       manufacturer: itemManufacturer,
-      amount: itemAmount,
     });
   };
 
@@ -107,7 +104,6 @@ const ItemModal = ({ refetchData, categories }) => {
                   onChange={(e) => setItemLength(e.target.value)}
                   placeholder="length"
                   required
-                  pattern="^-?\d*\.?\d*$|^---$"
                 />
               </div>
             </div>
