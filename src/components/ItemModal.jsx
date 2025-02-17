@@ -54,8 +54,8 @@ const ItemModal = ({ refetchData, categories }) => {
               className="form-select"
               placeholder="Category"
               type="select"
-              id="category"
-              name="category"
+              id="item-modal-category-select"
+              name="item-modal-category-select"
               value={itemCategory}
               onChange={(e) => setItemCategory(e.target.value)}
               required
