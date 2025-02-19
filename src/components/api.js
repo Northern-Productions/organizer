@@ -26,6 +26,7 @@ export const Requests = {
   // and return a promise with the result
   postItem: async (item) => {
     const { data, error } = await supabase.from("items").insert([item]);
+    console.log("Item:", item);
 
     if (error) {
       throw new Error(`Posting failed: ${error.message}`);

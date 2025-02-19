@@ -53,11 +53,7 @@ const Categories = ({
         >
           <option value="">All</option>
           {categories.map((obj) => (
-            <option
-              key={obj.id}
-              id={obj.name.toLowerCase()}
-              value={obj.name.toLowerCase()}
-            >
+            <option key={obj.id} id={obj.name} value={obj.name}>
               {obj.name}
             </option>
           ))}

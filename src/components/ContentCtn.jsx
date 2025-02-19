@@ -13,7 +13,6 @@ const ContentCtn = ({ filteredData, refetchData }) => {
         refetchData();
       })
       .catch((error) => {
-        console.log(object);
         console.error("Error deleting item:", error);
         toast.error("Failed to delete item: " + error.message);
       });
@@ -27,6 +26,7 @@ const ContentCtn = ({ filteredData, refetchData }) => {
             <th>Description</th>
             <th>Size</th>
             <th>Manufacturer</th>
+            <th>Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -34,8 +34,9 @@ const ContentCtn = ({ filteredData, refetchData }) => {
             <tr key={object.id} className="table-item">
               <td>{object.description}</td>
               <td>{object.size}</td>
+              <td>{object.manufacturer}</td>
               <td>
-                {object.manufacturer}
+                {object.amount}
                 <button
                   className="item-delete-btn"
                   onClick={() => handleDelete(object)}
@@ -52,5 +53,3 @@ const ContentCtn = ({ filteredData, refetchData }) => {
 };
 
 export default ContentCtn;
-
-// you made the delete button Worker. now get the real server and vercel loaded.

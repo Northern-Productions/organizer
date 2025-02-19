@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { Requests } from "./api";
 
 const ItemModal = ({ refetchData, categories }) => {
+  const [itemCategoryId, setItemCategoryId] = useState("");
   const [itemCategory, setItemCategory] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [itemWidth, setItemWidth] = useState("");
@@ -10,6 +11,7 @@ const ItemModal = ({ refetchData, categories }) => {
   const [itemManufacturer, setItemManufacturer] = useState("");
 
   const handleResetForm = () => {
+    setItemCategoryId("");
     setItemCategory("");
     setItemDescription("");
     setItemWidth("");
@@ -17,7 +19,7 @@ const ItemModal = ({ refetchData, categories }) => {
     setItemManufacturer("");
   };
 
-  let itemSize = itemWidth + '" x ' + itemLength + "'";
+  let itemSize = itemWidth + '" X ' + itemLength + "'";
 
   const handlePostItem = (newItem) => {
     return Requests.postItem(newItem)
@@ -36,11 +38,19 @@ const ItemModal = ({ refetchData, categories }) => {
     e.preventDefault();
 
     handlePostItem({
-      category_id: itemCategory, // Use category_id instead of category
+      category_id: itemCategoryId,
+      category: itemCategory,
       description: itemDescription,
       size: itemSize,
       manufacturer: itemManufacturer,
     });
+  };
+
+  const handleCategoryChange = (e) => {
+    const selectedCategoryId = e.target.value;
+    const categoryNames = categories.map((obj) => obj.name);
+    setItemCategoryId(selectedCategoryId);
+    setItemCategory(categoryNames[selectedCategoryId - 1]);
   };
 
   return (
@@ -56,8 +66,8 @@ const ItemModal = ({ refetchData, categories }) => {
               type="select"
               id="item-modal-category-select"
               name="item-modal-category-select"
-              value={itemCategory}
-              onChange={(e) => setItemCategory(e.target.value)}
+              value={itemCategoryId}
+              onChange={handleCategoryChange}
               required
             >
               <option value="" disabled hidden>
@@ -95,15 +105,15 @@ const ItemModal = ({ refetchData, categories }) => {
                   placeholder="Width"
                   required
                 />
-                <span> X </span>
+                <span>X</span>
                 <input
-                  type="text"
+                  type="number"
                   id="length"
                   name="length"
                   value={itemLength}
                   onChange={(e) => setItemLength(e.target.value)}
-                  placeholder="length"
-                  required
+                  inputMode="numeric"
+                  placeholder="Length"
                 />
               </div>
             </div>
