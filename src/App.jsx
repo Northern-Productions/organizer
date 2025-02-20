@@ -8,6 +8,7 @@ import SearchBar from "./components/SearchBarFunc";
 import ContentCtn from "./components/ContentCtn";
 import AddItem from "./components/AddItem";
 import AddCategory from "./components/AddCategory";
+import AddEdit from "./components/AddEdit";
 import { Requests } from "./components/api";
 
 function App() {
@@ -50,7 +51,13 @@ function App() {
         allItems={allItems}
         setFilteredData={setFilteredData}
       />
-      <ContentCtn filteredData={filteredData} refetchData={refetchData} />
+      <ContentCtn filteredData={filteredData} refetchData={refetchData}>
+        <AddEdit refetchData={refetchData} />
+      </ContentCtn>
+      <div className="footer">
+        <p>Created by: Your Name</p>
+        <p>Contact: Your contact info</p>
+      </div>
     </>
   );
 }
