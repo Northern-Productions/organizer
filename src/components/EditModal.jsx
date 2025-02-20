@@ -138,5 +138,3 @@ const ItemModal = ({ refetchData, categories }) => {
 };
 
 export default ItemModal;
-
-This is just a copy of itemModal, refactor it to work as an update function. form must populate with existing data from clicked item
