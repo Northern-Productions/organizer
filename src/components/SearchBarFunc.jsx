@@ -31,9 +31,9 @@ const SearchBar = ({
           lowerCaseSearchTerm
         );
         return (
-          descriptionDistance <= 3 ||
-          sizeDistance <= 3 ||
-          manufacturerDistance <= 3 ||
+          descriptionDistance <= 1 ||
+          sizeDistance <= 1 ||
+          manufacturerDistance <= 1 ||
           obj.description.toLowerCase().includes(lowerCaseSearchTerm) ||
           obj.size.toLowerCase().includes(lowerCaseSearchTerm) ||
           obj.manufacturer.toLowerCase().includes(lowerCaseSearchTerm)
