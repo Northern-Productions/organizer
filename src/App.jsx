@@ -8,6 +8,7 @@ import SearchBar from "./components/SearchBarFunc";
 import ContentCtn from "./components/ContentCtn";
 import AddItem from "./components/AddItem";
 import AddCategory from "./components/AddCategory";
+import DeleteCategoryModal from "./components/DeleteCategoryModal";
 import { Requests } from "./components/api";
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState([]);
+  const [isDeleteCategoryModalOpen, setIsDeleteCategoryModalOpen] =
+    useState(false);
 
   const refetchData = () => {
     return Requests.getAllItems()
@@ -32,6 +35,14 @@ function App() {
     refetchData();
   }, []);
 
+  const openDeleteCategoryModal = () => {
+    setIsDeleteCategoryModalOpen(true);
+  };
+
+  const closeDeleteCategoryModal = () => {
+    setIsDeleteCategoryModalOpen(false);
+  };
+
   return (
     <>
       <Categories
@@ -42,6 +53,12 @@ function App() {
       >
         <AddItem refetchData={refetchData} categories={categories} />
         <AddCategory refetchData={refetchData} />
+        <button
+          id="category-delete-modal-btn"
+          onClick={openDeleteCategoryModal}
+        >
+          -
+        </button>
       </Categories>
       <SearchBar
         searchTerm={searchTerm}
@@ -59,6 +76,14 @@ function App() {
           </a>
         </p>
       </div>
+
+      {isDeleteCategoryModalOpen && (
+        <DeleteCategoryModal
+          categories={categories}
+          refetchData={refetchData}
+          closeModal={closeDeleteCategoryModal}
+        />
+      )}
     </>
   );
 }

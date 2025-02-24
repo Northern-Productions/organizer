@@ -78,7 +78,8 @@
 
 #item-modal,
 #category-modal,
-#edit-modal {
+#edit-modal,
+#delete-category-modal {
   position: fixed;
   width: 20rem;
   border: 3px solid;
@@ -102,6 +103,12 @@
 #edit-modal {
   background-color: red;
   z-index: 7;
+  text-align: center;
+}
+
+#delete-category-modal {
+  background-color: sandybrown;
+  z-index: 8;
   text-align: center;
 }
 
@@ -195,6 +202,12 @@
 
 .delete-modal p {
   margin: 0;
+}
+
+#category-delete-modal-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
 }
 
 .table-item {
