@@ -49,6 +49,20 @@ export const Requests = {
     return data;
   },
 
+  // should delete a category from the database
+  deleteCategory: async (categoryId) => {
+    const { data, error } = await supabase
+      .from("categories")
+      .delete()
+      .eq("id", categoryId);
+
+    if (error) {
+      throw new Error(`Deletion failed: ${error.message}`);
+    }
+
+    return data;
+  },
+
   // should delete an item from the database
   deleteItem: async (itemId) => {
     const { data, error } = await supabase
