@@ -9,6 +9,7 @@ const ItemModal = ({ refetchData, categories }) => {
   const [itemWidth, setItemWidth] = useState("");
   const [itemLength, setItemLength] = useState("");
   const [itemManufacturer, setItemManufacturer] = useState("");
+  const [itemAmount, setItemAmount] = useState("");
 
   const handleResetForm = () => {
     setItemCategoryId("");
@@ -17,13 +18,18 @@ const ItemModal = ({ refetchData, categories }) => {
     setItemWidth("");
     setItemLength("");
     setItemManufacturer("");
+    setItemAmount("");
   };
 
   let itemSize = itemWidth + '" X ' + itemLength + "'";
+  if (itemWidth === "" || itemLength === "") {
+    itemSize = "";
+  }
 
   const handlePostItem = (newItem) => {
     return Requests.postItem(newItem)
       .then(() => {
+        console.log(newItem);
         toast.success("Item added successfully!");
         refetchData();
         handleResetForm();
@@ -43,14 +49,19 @@ const ItemModal = ({ refetchData, categories }) => {
       description: itemDescription,
       size: itemSize,
       manufacturer: itemManufacturer,
+      amount: itemAmount,
     });
   };
 
   const handleCategoryChange = (e) => {
-    const selectedCategoryId = e.target.value;
-    const categoryNames = categories.map((obj) => obj.name);
+    const selectedCategoryId = Number(e.target.value);
+    const selectedCategory = categories.find(
+      (category) => category.id === selectedCategoryId
+    );
     setItemCategoryId(selectedCategoryId);
-    setItemCategory(categoryNames[selectedCategoryId - 1]);
+    setItemCategory(selectedCategory.name);
+    console.log(selectedCategoryId);
+    console.log(selectedCategory.name);
   };
 
   return (
@@ -88,6 +99,7 @@ const ItemModal = ({ refetchData, categories }) => {
               name="description"
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value)}
+              placeholder="S800/Black 995/soap"
               required
             />
           </div>
@@ -103,7 +115,6 @@ const ItemModal = ({ refetchData, categories }) => {
                   onChange={(e) => setItemWidth(e.target.value)}
                   inputMode="numeric"
                   placeholder="Width"
-                  required
                 />
                 <span>X</span>
                 <input
@@ -126,6 +137,18 @@ const ItemModal = ({ refetchData, categories }) => {
               name="manufacturer"
               value={itemManufacturer}
               onChange={(e) => setItemManufacturer(e.target.value)}
+              placeholder="3M/Madico/Avery"
+            />
+          </div>
+          <div>
+            <label htmlFor="amount">Amount</label>
+            <input
+              type="text"
+              id="amount"
+              name="amount"
+              value={itemAmount}
+              onChange={(e) => setItemAmount(e.target.value)}
+              placeholder="30 Cases/sausages/tubes"
             />
           </div>
         </div>

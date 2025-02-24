@@ -15,31 +15,33 @@ const SearchBar = ({
     if (selectedCategory) {
       data = data.filter((obj) => obj.category === selectedCategory);
     }
+
     if (searchTerm) {
       const lowerCaseSearchTerm = searchTerm.toLowerCase();
+      const searchWords = lowerCaseSearchTerm.split(" ");
+
       data = data.filter((obj) => {
-        const descriptionDistance = levenshtein.get(
-          obj.description.toLowerCase(),
-          lowerCaseSearchTerm
-        );
-        const sizeDistance = levenshtein.get(
-          obj.size.toLowerCase(),
-          lowerCaseSearchTerm
-        );
-        const manufacturerDistance = levenshtein.get(
-          obj.manufacturer.toLowerCase(),
-          lowerCaseSearchTerm
-        );
-        return (
-          descriptionDistance <= 1 ||
-          sizeDistance <= 1 ||
-          manufacturerDistance <= 1 ||
-          obj.description.toLowerCase().includes(lowerCaseSearchTerm) ||
-          obj.size.toLowerCase().includes(lowerCaseSearchTerm) ||
-          obj.manufacturer.toLowerCase().includes(lowerCaseSearchTerm)
-        );
+        const description = obj.description.toLowerCase();
+        const size = obj.size.toLowerCase();
+        const manufacturer = obj.manufacturer.toLowerCase();
+
+        return searchWords.every((word) => {
+          const descriptionDistance = levenshtein.get(description, word);
+          const sizeDistance = levenshtein.get(size, word);
+          const manufacturerDistance = levenshtein.get(manufacturer, word);
+
+          return (
+            descriptionDistance <= 1 ||
+            sizeDistance <= 1 ||
+            manufacturerDistance <= 1 ||
+            description.includes(word) ||
+            size.includes(word) ||
+            manufacturer.includes(word)
+          );
+        });
       });
     }
+
     setFilteredData(data);
   }, [selectedCategory, searchTerm, allItems, setFilteredData]);
 

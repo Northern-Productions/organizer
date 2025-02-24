@@ -25,7 +25,7 @@ const ContentCtn = ({ filteredData, refetchData }) => {
         <thead>
           <tr>
             <th>Description</th>
-            <th>Size</th>
+            <th>Size/Amount</th>
             <th>Manufacturer</th>
           </tr>
         </thead>
@@ -33,7 +33,7 @@ const ContentCtn = ({ filteredData, refetchData }) => {
           {filteredData.map((object) => (
             <tr key={object.id} className="table-item">
               <td>{object.description}</td>
-              <td>{object.size}</td>
+              <td>{object.size ? object.size : object.amount}</td>
               <td>
                 {object.manufacturer}
                 <button id="edit-item" onClick={() => handleOpenModal(object)}>
