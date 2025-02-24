@@ -1,122 +1,101 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { useState, useEffect } from "react";
 import { Requests } from "./api";
+import toast from "react-hot-toast";
 
-const ItemModal = ({ refetchData, categories }) => {
-  const [itemCategoryId, setItemCategoryId] = useState("");
-  const [itemCategory, setItemCategory] = useState("");
-  const [itemDescription, setItemDescription] = useState("");
-  const [itemWidth, setItemWidth] = useState("");
-  const [itemLength, setItemLength] = useState("");
-  const [itemManufacturer, setItemManufacturer] = useState("");
+const EditModal = ({ item, refetchData, closeModal }) => {
+  const [description, setDescription] = useState("");
+  const [size, setSize] = useState("");
+  const [manufacturer, setManufacturer] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isYesButtonDisabled, setIsYesButtonDisabled] = useState(true);
 
-  const handleResetForm = () => {
-    setItemCategoryId("");
-    setItemCategory("");
-    setItemDescription("");
-    setItemWidth("");
-    setItemLength("");
-    setItemManufacturer("");
-  };
+  useEffect(() => {
+    if (item) {
+      setDescription(item.description);
+      setSize(item.size);
+      setManufacturer(item.manufacturer);
+    }
+  }, [item]);
 
-  let itemSize = itemWidth + '" X ' + itemLength + "'";
+  useEffect(() => {
+    if (isDeleteModalOpen) {
+      const timer = setTimeout(() => {
+        setIsYesButtonDisabled(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isDeleteModalOpen]);
 
-  const handlePostItem = (newItem) => {
-    return Requests.postItem(newItem)
+  const handleUpdateItem = (e) => {
+    e.preventDefault();
+
+    const updatedItem = {
+      ...item,
+      description,
+      size,
+      manufacturer,
+    };
+
+    Requests.updateItem(item.id, updatedItem)
       .then(() => {
-        toast.success("Item added successfully!");
+        toast.success("Item updated successfully!");
         refetchData();
-        handleResetForm();
+        closeModal();
       })
       .catch((error) => {
-        console.error("Error adding item:", error);
-        toast.error("Failed to add item: " + error.message);
+        console.error("Error updating item:", error);
+        toast.error("Failed to update item: " + error.message);
       });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    handlePostItem({
-      category_id: itemCategoryId,
-      category: itemCategory,
-      description: itemDescription,
-      size: itemSize,
-      manufacturer: itemManufacturer,
-    });
+  const handleDeleteItem = () => {
+    Requests.deleteItem(item.id)
+      .then(() => {
+        toast.success("Item deleted successfully!");
+        refetchData();
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Error deleting item:", error);
+        toast.error("Failed to delete item: " + error.message);
+      });
   };
 
-  const handleCategoryChange = (e) => {
-    const selectedCategoryId = e.target.value;
-    const categoryNames = categories.map((obj) => obj.name);
-    setItemCategoryId(selectedCategoryId);
-    setItemCategory(categoryNames[selectedCategoryId - 1]);
+  const openDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+    setIsYesButtonDisabled(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
   };
 
   return (
     <>
-      <h1>Add New Item</h1>
-      <form className="modal-form" onSubmit={handleSubmit}>
+      <form className="modal-form" onSubmit={handleUpdateItem}>
         <div className="form-input-ctn">
-          <div>
-            <label htmlFor="category">Category</label>
-            <select
-              className="form-select"
-              placeholder="Category"
-              type="select"
-              id="item-modal-category-select"
-              name="item-modal-category-select"
-              value={itemCategoryId}
-              onChange={handleCategoryChange}
-              required
-            >
-              <option value="" disabled hidden>
-                -- Select an option --
-              </option>
-              {categories.map((obj) => (
-                <option key={obj.id} value={obj.id}>
-                  {obj.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <h1>Edit Item</h1>
           <div>
             <label htmlFor="description">Description</label>
             <input
               type="text"
               id="description"
               name="description"
-              value={itemDescription}
-              onChange={(e) => setItemDescription(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
           <div>
             <label htmlFor="size">Size</label>
-            <div>
-              <div id="size-inputs">
-                <input
-                  type="number"
-                  id="width"
-                  name="width"
-                  value={itemWidth}
-                  onChange={(e) => setItemWidth(e.target.value)}
-                  inputMode="numeric"
-                  placeholder="Width"
-                  required
-                />
-                <span>X</span>
-                <input
-                  type="number"
-                  id="length"
-                  name="length"
-                  value={itemLength}
-                  onChange={(e) => setItemLength(e.target.value)}
-                  inputMode="numeric"
-                  placeholder="Length"
-                />
-              </div>
-            </div>
+            <input
+              type="text"
+              id="size"
+              name="size"
+              value={size}
+              onChange={(e) => setSize(e.target.value)}
+              required
+            />
           </div>
           <div>
             <label htmlFor="manufacturer">Manufacturer</label>
@@ -124,17 +103,37 @@ const ItemModal = ({ refetchData, categories }) => {
               type="text"
               id="manufacturer"
               name="manufacturer"
-              value={itemManufacturer}
-              onChange={(e) => setItemManufacturer(e.target.value)}
+              value={manufacturer}
+              onChange={(e) => setManufacturer(e.target.value)}
+              required
             />
           </div>
         </div>
-        <button className="add-item-modal-btn" type="submit">
-          Add Item
-        </button>
+        <div id="edit-modal-btn-ctn" className="btn-margin">
+          <button type="submit">Update Item</button>
+          <button type="button" onClick={openDeleteModal}>
+            Delete Item
+          </button>
+        </div>
       </form>
+
+      {isDeleteModalOpen && (
+        <div className="delete-modal">
+          <p>Are you sure you want to delete the item?</p>
+          <button
+            className="btn-margin"
+            onClick={handleDeleteItem}
+            disabled={isYesButtonDisabled}
+          >
+            Yes
+          </button>
+          <button className="btn-margin" onClick={closeDeleteModal}>
+            No
+          </button>
+        </div>
+      )}
     </>
   );
 };
 
-export default ItemModal;
+export default EditModal;

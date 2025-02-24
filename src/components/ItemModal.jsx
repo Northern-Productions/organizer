@@ -129,7 +129,7 @@ const ItemModal = ({ refetchData, categories }) => {
             />
           </div>
         </div>
-        <button className="add-item-modal-btn" type="submit">
+        <button className="btn-margin" type="submit">
           Add Item
         </button>
       </form>

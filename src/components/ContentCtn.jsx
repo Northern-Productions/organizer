@@ -1,21 +1,22 @@
-import { Requests } from "./api";
-import toast from "react-hot-toast";
+import { useState } from "react";
+import EditModal from "./EditModal";
 
 const ContentCtn = ({ filteredData, refetchData }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   if (!Array.isArray(filteredData)) {
     return <p>No data available</p>;
   }
 
-  const handleDelete = (object) => {
-    return Requests.deleteItem(object.id)
-      .then(() => {
-        toast.success("Item deleted successfully!");
-        refetchData();
-      })
-      .catch((error) => {
-        console.error("Error deleting item:", error);
-        toast.error("Failed to delete item: " + error.message);
-      });
+  const handleOpenModal = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedItem(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -35,17 +36,27 @@ const ContentCtn = ({ filteredData, refetchData }) => {
               <td>{object.size}</td>
               <td>
                 {object.manufacturer}
-                <button
-                  className="item-delete-btn"
-                  onClick={() => handleDelete(object)}
-                >
-                  +
+                <button id="edit-item" onClick={() => handleOpenModal(object)}>
+                  Edit
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {isModalOpen && (
+        <div id="edit-modal" className="edit-modal">
+          <div className="modal-x" onClick={handleCloseModal}>
+            X
+          </div>
+          <EditModal
+            item={selectedItem}
+            refetchData={refetchData}
+            closeModal={handleCloseModal}
+          />
+        </div>
+      )}
     </>
   );
 };

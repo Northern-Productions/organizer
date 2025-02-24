@@ -48,7 +48,11 @@ const CategoryModal = ({ refetchData }) => {
           />
         </div>
       </div>
-      <button id="category-submit-btn" type="submit" className="form-submit">
+      <button
+        id="category-submit-btn"
+        type="submit"
+        className="form-submit btn-margin"
+      >
         Add Category
       </button>
     </form>

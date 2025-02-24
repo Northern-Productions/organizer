@@ -29,16 +29,26 @@
   margin: 0 0 1rem;
 }
 
-#add-item {
-  color: red;
+#add-item,
+#add-category,
+#edit-item {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+}
+
+#add-item,
+#add-category,
+#edit-item {
   cursor: pointer;
   border: 1px solid white;
   padding: 0.5rem;
   border-radius: 10px;
   background-color: #333;
+}
+
+#add-item {
+  color: red;
+  top: 2rem;
+  right: 2rem;
 }
 
 #add-item:hover,
@@ -46,26 +56,35 @@
   color: white;
 }
 
+#edit-item:hover {
+  background-color: red;
+}
+
 #add-category {
   color: orange;
-  position: absolute;
   top: 2rem;
   right: 8rem;
-  cursor: pointer;
+}
+
+#edit-item {
+  color: white;
+  background-color: #414141;
+  top: 20%;
+  right: 15px;
   border: 1px solid white;
-  padding: 0.5rem;
-  border-radius: 10px;
-  background-color: #333;
+  border-radius: 3px;
+  padding: 0 6px 3px;
 }
 
 #item-modal,
-#category-modal {
+#category-modal,
+#edit-modal {
   position: fixed;
-  top: 10%;
-  left: 10%;
   width: 20rem;
   border: 3px solid;
   border-radius: 20px;
+  top: 10%;
+  left: 10%;
 }
 
 #item-modal {
@@ -75,10 +94,15 @@
 }
 
 #category-modal {
-  height: 15rem;
   background-color: green;
   display: none;
   z-index: 6;
+}
+
+#edit-modal {
+  background-color: red;
+  z-index: 7;
+  text-align: center;
 }
 
 #category-input,
@@ -116,7 +140,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 .form-input-ctn div {
@@ -142,8 +165,8 @@
   margin: 0 0.5rem;
 }
 
-.add-item-modal-btn {
-  margin: 0 0 1rem;
+.btn-margin {
+  margin: 1rem;
 }
 
 .search-bar-ctn {
@@ -165,16 +188,18 @@
   outline: none;
 }
 
+#edit-modal-btn-ctn {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.delete-modal p {
+  margin: 0;
+}
+
 .table-item {
   list-style: none;
   position: relative;
-}
-
-.item-delete-btn {
-  position: absolute;
-  right: 10px;
-  top: 8px;
-  padding: 0px 5px 4px;
 }
 
 /* App.css */
