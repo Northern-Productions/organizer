@@ -2,14 +2,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Requests } from "./api";
 
-const ItemModal = ({ refetchData, categories }) => {
+const ItemModal = ({ refetchData, categories, itemAmount, setItemAmount }) => {
   const [itemCategoryId, setItemCategoryId] = useState("");
   const [itemCategory, setItemCategory] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [itemWidth, setItemWidth] = useState("");
   const [itemLength, setItemLength] = useState("");
   const [itemManufacturer, setItemManufacturer] = useState("");
-  const [itemAmount, setItemAmount] = useState("");
 
   const handleResetForm = () => {
     setItemCategoryId("");
@@ -29,7 +28,6 @@ const ItemModal = ({ refetchData, categories }) => {
   const handlePostItem = (newItem) => {
     return Requests.postItem(newItem)
       .then(() => {
-        console.log(newItem);
         toast.success("Item added successfully!");
         refetchData();
         handleResetForm();
@@ -60,8 +58,6 @@ const ItemModal = ({ refetchData, categories }) => {
     );
     setItemCategoryId(selectedCategoryId);
     setItemCategory(selectedCategory.name);
-    console.log(selectedCategoryId);
-    console.log(selectedCategory.name);
   };
 
   return (

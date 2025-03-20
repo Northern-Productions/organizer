@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 const EditModal = ({ item, refetchData, closeModal }) => {
   const [description, setDescription] = useState("");
   const [size, setSize] = useState("");
+  const [amount, setAmount] = useState("");
   const [manufacturer, setManufacturer] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isYesButtonDisabled, setIsYesButtonDisabled] = useState(true);
@@ -13,6 +14,7 @@ const EditModal = ({ item, refetchData, closeModal }) => {
     if (item) {
       setDescription(item.description);
       setSize(item.size);
+      setAmount(item.amount);
       setManufacturer(item.manufacturer);
     }
   }, [item]);
@@ -33,6 +35,7 @@ const EditModal = ({ item, refetchData, closeModal }) => {
       ...item,
       description,
       size,
+      amount,
       manufacturer,
     };
 
@@ -94,7 +97,16 @@ const EditModal = ({ item, refetchData, closeModal }) => {
               name="size"
               value={size}
               onChange={(e) => setSize(e.target.value)}
-              required
+            />
+          </div>
+          <div>
+            <label htmlFor="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
             />
           </div>
           <div>

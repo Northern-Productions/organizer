@@ -1,6 +1,6 @@
 import ItemModal from "./ItemModal";
 
-const AddItem = ({ refetchData, categories }) => {
+const AddItem = ({ refetchData, categories, itemAmount, setItemAmount }) => {
   const openModalClick = () => {
     const modal = document.getElementById("item-modal");
     modal.style.display = "block";
@@ -21,7 +21,12 @@ const AddItem = ({ refetchData, categories }) => {
         <div className="modal-x" onClick={closeModalClick}>
           X
         </div>
-        <ItemModal refetchData={refetchData} categories={categories} />
+        <ItemModal
+          refetchData={refetchData}
+          categories={categories}
+          itemAmount={itemAmount}
+          setItemAmount={setItemAmount}
+        />
       </div>
     </>
   );

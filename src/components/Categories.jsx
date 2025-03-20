@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Requests } from "./api";
 import toast from "react-hot-toast";
@@ -10,20 +10,19 @@ const Categories = ({
   setCategories,
   children,
 }) => {
-  const refetchCategories = () => {
-    return Requests.getAllCategories()
-      .then((fetchedCategories) => {
-        setCategories(fetchedCategories);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch categories: ", error);
-        toast.error("Failed to fetch categories: ", error);
-      });
-  };
+  const refetchCategories = useCallback(async () => {
+    try {
+      const fetchedCategories = await Requests.getAllCategories();
+      setCategories(fetchedCategories);
+    } catch (error) {
+      console.error("Failed to fetch categories: ", error);
+      toast.error("Failed to fetch categories: " + error.message);
+    }
+  }, [setCategories]);
 
   useEffect(() => {
     refetchCategories();
-  });
+  }, [refetchCategories]);
 
   const handleClick = (e) => {
     const category = e.target.value;
@@ -67,6 +66,9 @@ const Categories = ({
 Categories.propTypes = {
   selectedCategory: PropTypes.string.isRequired,
   setSelectedCategory: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  setCategories: PropTypes.func.isRequired,
+  children: PropTypes.node,
 };
 
 export default Categories;

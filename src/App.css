@@ -12,6 +12,30 @@
   color: white;
 }
 
+#login-form,
+#sign-up-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem auto;
+}
+
+#login-form label,
+#login-form input,
+#login-form button,
+#sign-up-form label,
+#sign-up-form input,
+#sign-up-form button {
+  margin: 0.5rem;
+}
+
+.sign-out-btn {
+  position: absolute;
+  top: 15px;
+  left: 50px;
+  cursor: pointer;
+}
+
 .header {
   margin-top: 5rem;
 }
