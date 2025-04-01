@@ -24,6 +24,7 @@ function App() {
   const [isDeleteCategoryModalOpen, setIsDeleteCategoryModalOpen] =
     useState(false);
   const [itemAmount, setItemAmount] = useState("");
+  const [role, setRole] = useState(null); // Add role state
 
   const refetchData = () => {
     return Requests.getAllItems()
@@ -61,6 +62,27 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      if (user) {
+        const { data: profile, error } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+
+        if (error) {
+          console.error("Error fetching user role:", error);
+        } else {
+          setRole(profile?.role); // Set the user's role
+        }
+        console.log("User role:", profile?.role);
+      }
+    };
+
+    fetchUserRole();
+  }, [user]); // Run this effect whenever the user changes
+
   const openDeleteCategoryModal = () => {
     setIsDeleteCategoryModalOpen(true);
   };
@@ -83,9 +105,16 @@ function App() {
     <>
       {user ? (
         <>
+          {/* sign out button */}
           <button onClick={handleSignOut} className="sign-out-btn">
             Sign Out
           </button>
+          {/* sign out button */}
+          {role === "admin" ? (
+            <p>Welcome, Admin! You have access to extra features.</p>
+          ) : (
+            <p>Welcome, User!</p>
+          )}
           <Categories
             categories={categories}
             setCategories={setCategories}

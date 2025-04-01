@@ -27,7 +27,7 @@ function Login({ setUser }) {
     <form id="login-form" onSubmit={handleLogin}>
       <label htmlFor="email">Email:</label>
       <input
-        id="email"
+        id="login-email"
         type="email"
         placeholder="Email"
         value={email}
@@ -36,7 +36,7 @@ function Login({ setUser }) {
       />
       <label htmlFor="password">Password:</label>
       <input
-        id="password"
+        id="login-password"
         type="password"
         placeholder="Password"
         value={password}

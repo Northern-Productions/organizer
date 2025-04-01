@@ -13,7 +13,7 @@
 }
 
 #login-form,
-#sign-up-form {
+#signup-form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,9 +23,9 @@
 #login-form label,
 #login-form input,
 #login-form button,
-#sign-up-form label,
-#sign-up-form input,
-#sign-up-form button {
+#signup-form label,
+#signup-form input,
+#signup-form button {
   margin: 0.5rem;
 }
 
