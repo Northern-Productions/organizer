@@ -36,6 +36,22 @@
   cursor: pointer;
 }
 
+/* Admin content CSS */
+
+#price-ctn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#price-display {
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 0 5px;
+}
+
+/* Admin content CSS */
+
 .header {
   margin-top: 5rem;
 }
@@ -254,7 +270,7 @@ td {
 
 th,
 td {
-  padding: 8px;
+  padding: 7px;
   text-align: left;
 }
 

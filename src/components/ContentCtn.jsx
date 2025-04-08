@@ -32,7 +32,12 @@ const ContentCtn = ({ filteredData, refetchData }) => {
         <tbody>
           {filteredData.map((object) => (
             <tr key={object.id} className="table-item">
-              <td>{object.description}</td>
+              <td>
+                <div id="price-ctn">
+                  <div>{object.description}</div>
+                  <div id="price-display">{object.price}</div>
+                </div>
+              </td>
               <td>{object.size ? object.size : object.amount}</td>
               <td>
                 {object.manufacturer}

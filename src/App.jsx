@@ -24,7 +24,7 @@ function App() {
   const [isDeleteCategoryModalOpen, setIsDeleteCategoryModalOpen] =
     useState(false);
   const [itemAmount, setItemAmount] = useState("");
-  const [role, setRole] = useState(null); // Add role state
+  const [role, setRole] = useState(""); // if user is admin, show extra data.
 
   const refetchData = () => {
     return Requests.getAllItems()
@@ -72,11 +72,10 @@ function App() {
           .single();
 
         if (error) {
-          console.error("Error fetching user role:", error);
+          console.error("No user role found");
         } else {
           setRole(profile?.role); // Set the user's role
         }
-        console.log("User role:", profile?.role);
       }
     };
 
@@ -97,6 +96,7 @@ function App() {
       toast.error("Failed to sign out: " + error.message);
     } else {
       setUser(null);
+      setRole("");
       toast.success("Signed out successfully!");
     }
   };
@@ -110,11 +110,7 @@ function App() {
             Sign Out
           </button>
           {/* sign out button */}
-          {role === "admin" ? (
-            <p>Welcome, Admin! You have access to extra features.</p>
-          ) : (
-            <p>Welcome, User!</p>
-          )}
+          {<p>{role}</p>}
           <Categories
             categories={categories}
             setCategories={setCategories}
@@ -171,3 +167,5 @@ function App() {
 }
 
 export default App;
+
+// make another component to figure the prices and totals for admins
