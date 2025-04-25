@@ -33,7 +33,7 @@
 .sign-out-btn {
   position: absolute;
   top: 15px;
-  left: 50px;
+  left: 15px;
   cursor: pointer;
 }
 
@@ -92,8 +92,8 @@
 
 #add-item {
   color: red;
-  top: 2rem;
-  right: 2rem;
+  top: 1rem;
+  right: 0rem;
 }
 
 #add-item:hover,
