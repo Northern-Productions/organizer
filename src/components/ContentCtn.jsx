@@ -35,7 +35,7 @@ const ContentCtn = ({ filteredData, refetchData }) => {
               <td>
                 <div id="price-ctn">
                   <div>{object.description}</div>
-                  <div id="price-display">{object.price}</div>
+                  <div id="price-display">${object.price}</div>
                 </div>
               </td>
               <td>{object.size ? object.size : object.amount}</td>
