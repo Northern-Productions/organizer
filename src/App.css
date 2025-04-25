@@ -293,4 +293,15 @@ td {
   #root {
     padding: 0;
   }
+
+  #login-form,
+  #signup-form {
+    flex-direction: column;
+    margin: 2rem auto;
+  }
+
+  #login-form label,
+  #signup-form label {
+    margin-bottom: 0;
+  }
 }
