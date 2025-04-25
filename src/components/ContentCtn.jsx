@@ -40,7 +40,7 @@ const ContentCtn = ({ filteredData, refetchData }) => {
               </td>
               <td>{object.size ? object.size : object.amount}</td>
               <td>
-                {object.manufacturer}
+                <div>{object.manufacturer}</div>
                 <button id="edit-item" onClick={() => handleOpenModal(object)}>
                   Edit
                 </button>
