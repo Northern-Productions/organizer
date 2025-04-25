@@ -229,6 +229,7 @@
   background: #242424;
   font-size: 20px;
   width: 14rem;
+  color: white;
 }
 
 #search:focus {
