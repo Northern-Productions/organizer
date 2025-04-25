@@ -7,8 +7,6 @@ import toast from "react-hot-toast";
 import SearchBar from "./components/SearchBarFunc";
 import ContentCtn from "./components/ContentCtn";
 import AddItem from "./components/AddItem";
-import AddCategory from "./components/AddCategory";
-import DeleteCategoryModal from "./components/DeleteCategoryModal";
 import { Requests } from "./components/api";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp.jsx";
@@ -21,8 +19,6 @@ function App() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState([]);
-  const [isDeleteCategoryModalOpen, setIsDeleteCategoryModalOpen] =
-    useState(false);
   const [itemAmount, setItemAmount] = useState("");
   const [role, setRole] = useState(""); // if user is admin, show extra data.
 
@@ -82,14 +78,6 @@ function App() {
     fetchUserRole();
   }, [user]); // Run this effect whenever the user changes
 
-  const openDeleteCategoryModal = () => {
-    setIsDeleteCategoryModalOpen(true);
-  };
-
-  const closeDeleteCategoryModal = () => {
-    setIsDeleteCategoryModalOpen(false);
-  };
-
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -123,13 +111,6 @@ function App() {
               itemAmount={itemAmount}
               setItemAmount={setItemAmount}
             />
-            <AddCategory refetchData={refetchData} />
-            <button
-              id="category-delete-modal-btn"
-              onClick={openDeleteCategoryModal}
-            >
-              -
-            </button>
           </Categories>
           <SearchBar
             searchTerm={searchTerm}
@@ -147,14 +128,6 @@ function App() {
               </a>
             </p>
           </div>
-
-          {isDeleteCategoryModalOpen && (
-            <DeleteCategoryModal
-              categories={categories}
-              refetchData={refetchData}
-              closeModal={closeDeleteCategoryModal}
-            />
-          )}
         </>
       ) : (
         <>
