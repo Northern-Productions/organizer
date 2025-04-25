@@ -110,7 +110,7 @@ function App() {
             Sign Out
           </button>
           {/* sign out button */}
-          {<p>{role}</p>}
+          {<p className="user-role">{role}</p>}
           <Categories
             categories={categories}
             setCategories={setCategories}

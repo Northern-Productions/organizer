@@ -38,6 +38,10 @@
 
 /* Admin content CSS */
 
+.user-role {
+  margin: 0;
+}
+
 #price-ctn {
   display: flex;
   justify-content: space-between;
