@@ -122,7 +122,7 @@
   padding: 0 6px 3px;
 }
 
-#item-modal,
+.item-modal,
 #category-modal,
 #edit-modal,
 #delete-category-modal {
@@ -310,5 +310,34 @@ td {
   #login-form label,
   #signup-form label {
     margin-bottom: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .item-modal {
+    width: 100%;
+    left: 0;
+  }
+
+  .form-input-ctn div {
+    width: 90%;
+    align-items: center;
+  }
+
+  .form-input-ctn div label,
+  .form-select,
+  .form-input-ctn div input,
+  .form-input-ctn div div div input,
+  .btn-margin {
+    font-size: 1.3rem;
+    width: 90%;
+  }
+
+  #size-inputs {
+    justify-content: center;
+  }
+
+  #size-inputs input {
+    width: 50%;
   }
 }
