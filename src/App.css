@@ -316,7 +316,7 @@ td {
 
 @media (max-width: 430px) {
   .item-modal {
-    width: 100vw;
+    width: 99vw;
     left: 0;
   }
 
